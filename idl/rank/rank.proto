@@ -1,0 +1,25 @@
+syntax = "proto3";
+package rank;
+option go_package = "idl/rank";
+
+message RankItem {
+  int32 rank_id = 1;
+  int64 uid = 2;
+  int64 rank = 3;
+  int32 score = 4;
+}
+
+message GetRankRequest {
+  int32 rank_id = 1;
+  int64 uid = 2;
+}
+
+message RankList {
+  repeated RankItem rank_list = 1;
+}
+
+service Rank {
+  rpc GetUserRank(GetRankRequest) returns (RankItem);
+  rpc GetLowRankList(GetRankRequest) returns (RankList);
+  rpc GetHighRankList(GetRankRequest) returns (RankList);
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+package activity;
+option go_package = "idl/activity";
+import "google/protobuf/empty.proto";
+
+message DeltaScoreRequest {
+  int32 rank_id = 1; // 榜单id
+  int64 uid = 2; // 变化分数用户id
+  string tx_id = 3; // 业务区分唯一id 幂等
+  int32 score = 4; // 分数
+}
+
+message DelUserRequest {
+  int32 rank_id = 1;
+  int64 uid = 2;
+}
+
+service Activity {
+  // 修改分数
+  rpc DeltaScore(DeltaScoreRequest) returns (google.protobuf.Empty);
+  // 作弊或其他行为 踢榜
+  rpc DelUser(DelUserRequest) returns (google.protobuf.Empty);
+}
